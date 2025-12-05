@@ -1,4 +1,4 @@
-import mongoose, { set } from "mongoose";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -7,11 +7,10 @@ const dbConnection = async () => {
   const DB = process.env.DB;
   try {
     await mongoose.connect(DB).then(() => {
-      console.log("Database connected successfully");
+      console.log("✅ Database connected successfully");
     })
-
   } catch (error) {
-    console.log("Database connection error:", error);
+    console.error("❌ Database connection error:", error.message);
     setTimeout(dbConnection, 5000);
   }
 
