@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { use } from "react";
 const orderSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -32,6 +31,9 @@ const orderSchema = new mongoose.Schema({
   }
 
 }, { timestamps: true });
+
+
+
 
 const Order = mongoose.model("Order", orderSchema);
 export default Order;
