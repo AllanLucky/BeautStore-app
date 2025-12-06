@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv"
 import dbConnection from "./config/dbConfig.js";
+import sendWelcomeEmail from "./EmailServices/sendWelcome.js"
+import sendPendingOrderEmail from "./EmailServices/sendPendingOrderEmail.js";
 import cron from "node-cron";
 dotenv.config();
 
@@ -13,6 +15,8 @@ const PORT = process.env.PORT || 8001;
 const services = () => {
   cron.schedule('* * * * * *', () => { });
   // CHECK OUT ON HOW TO CONFIG crontab guru
+  sendWelcomeEmail();
+  sendPendingOrderEmail();
 }
 
 services()
