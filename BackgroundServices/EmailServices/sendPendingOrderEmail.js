@@ -4,7 +4,6 @@ import sendMail from "../helpers/sendMailer.js";
 import Order from "../models/order.model.js";
 
 dotenv.config();
-
 const sendPendingOrderEmail = async () => {
   try {
     const orders = await Order.find({ status: 0 }); // pending orders

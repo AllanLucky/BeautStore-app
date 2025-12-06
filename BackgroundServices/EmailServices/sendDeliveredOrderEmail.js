@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import sendMail from "../helpers/sendMailer.js";
 import Order from "../models/order.model.js";
 
+
 dotenv.config();
 
 const sendDeliveredOrderEmail = async () => {

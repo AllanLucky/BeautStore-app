@@ -18,7 +18,7 @@ const sendPromotionEmail = async () => {
         "templates/promotion.ejs", // create a promotion template
         {
           name: user.name,
-          products:products, // send the sampled products
+          products, // send the sampled products
           supportLink: process.env.SUPPORT_LINK
         }
       );
