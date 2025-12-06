@@ -6,11 +6,12 @@ import User from "../models/user.model.js";
 dotenv.config();
 
 const sendWelcomeEmail = async () => {
-  const users = await User.find({ status: 0 });
+  try {
+    const users = await User.find({ status: 0 }); // users not yet emailed
 
-  if (users.length > 0) {
+    if (!users.length) return;
+
     for (let user of users) {
-
       const data = await ejs.renderFile(
         "templates/Welcome.ejs",
         {
@@ -19,20 +20,22 @@ const sendWelcomeEmail = async () => {
         }
       );
 
-      let messageOptions = {
+      const messageOptions = {
         from: process.env.EMAIL,
         to: user.email,
         subject: "Welcome to Beauty Bliss",
-        html: data
+        html: data,
       };
 
       try {
         await sendMail(messageOptions);
-        await User.findByIdAndUpdate(user._id, { $set: { status: 1 } });
+        await User.findByIdAndUpdate(user._id, { $set: { status: 1 } }); // mark as emailed
       } catch (error) {
-        console.log(error);
+        console.log(`Failed to send email to ${user.email}:`, error);
       }
     }
+  } catch (error) {
+    console.log("Error fetching users for welcome email:", error);
   }
 };
 
